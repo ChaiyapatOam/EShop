@@ -13,9 +13,11 @@ const api = process.env.API_URL
 const productsRouter = require('./routers/products')
 const categoryRouter = require('./routers/categories')
 const userRouter = require('./routers/users')
+const authJwt = require('./helpers/jwt')
 
 app.use(bodyParser.json())
 app.use(morgan('tiny')) //HTTP status
+app.use(authJwt())
 
 app.use(api+'/products',productsRouter)
 app.use(api+'/category',categoryRouter)
