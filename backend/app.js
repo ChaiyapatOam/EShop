@@ -14,10 +14,12 @@ const productsRouter = require('./routers/products')
 const categoryRouter = require('./routers/categories')
 const userRouter = require('./routers/users')
 const authJwt = require('./helpers/jwt')
+const errorHandler = require('./helpers/error-handler')
 
 app.use(bodyParser.json())
 app.use(morgan('tiny')) //HTTP status
 app.use(authJwt())
+app.use(errorHandler)
 
 app.use(api+'/products',productsRouter)
 app.use(api+'/category',categoryRouter)
