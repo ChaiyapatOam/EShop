@@ -10,7 +10,9 @@ app.use(cors())
 app.options('*',cors())
 //middleware
 const api = process.env.API_URL
-//Router
+const path = require('path')
+app.use('/public/uploads', express.static(__dirname+'/public/uploads'))
+//Router D:\Project\EShop\backend\public\uploads\wp8225565.jpg-1641227450248.jpeg
 const productsRouter = require('./routers/products')
 const categoryRouter = require('./routers/categories')
 const userRouter = require('./routers/users')
@@ -24,6 +26,7 @@ app.use(bodyParser.json())
 app.use(morgan('tiny')) //HTTP status
 app.use(authJwt())
 app.use(errorHandler)
+
 
 app.use(api+'/products',productsRouter)
 app.use(api+'/category',categoryRouter)
