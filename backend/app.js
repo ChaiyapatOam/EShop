@@ -10,9 +10,13 @@ app.use(cors())
 app.options('*',cors())
 //middleware
 const api = process.env.API_URL
+//Router
 const productsRouter = require('./routers/products')
 const categoryRouter = require('./routers/categories')
 const userRouter = require('./routers/users')
+const ordersRouter = require('./routers/orders')
+
+//Helper
 const authJwt = require('./helpers/jwt')
 const errorHandler = require('./helpers/error-handler')
 
@@ -24,6 +28,7 @@ app.use(errorHandler)
 app.use(api+'/products',productsRouter)
 app.use(api+'/category',categoryRouter)
 app.use(api+'/users',userRouter)
+app.use(api+'/orders',ordersRouter)
 
 mongoose.connect('mongodb://localhost/VUECRUD',{
     useNewUrlParser: true,

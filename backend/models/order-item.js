@@ -18,4 +18,4 @@ orderItemSchema.set('toJSON',{
     virtuals: true
 })
 
-exports.Order = mongoose.model('OrderItem', orderItemSchema)
+exports.OrderItem = mongoose.model('OrderItem', orderItemSchema)
