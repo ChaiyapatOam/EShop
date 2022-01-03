@@ -6,9 +6,9 @@ const { Order } = require('../models/order')
 const {OrderItem} = require('../models/order-item')
 const router  = express.Router()
 
-//Get All Product
+//Get All Order
 router.get('/', async (req,res) =>{
-    const orderList = await Order.find()
+    const orderList = await Order.find().populate('user','name').sort({'DateOrder': -1})
 
     if(!orderList) {
         res.status(500).json({success: false})
@@ -16,6 +16,18 @@ router.get('/', async (req,res) =>{
     res.send(orderList)
 })
 
+router.get('/:id', async (req,res) =>{
+    const order = await Order.findById(req.params.id)
+    .populate('user','name')
+    .populate({ path: 'orderItems', populate: {
+        path:'product',populate:{path: 'category'}}})
+    //.populate('orderItems')
+
+    if(!order) {
+        res.status(500).json({success: false})
+    }
+    res.send(order)
+})
 
 router.post('/', async (req,res)=>{
     const orderItemsId = Promise.all(req.body.orderItems.map(async (orderItem) => {
